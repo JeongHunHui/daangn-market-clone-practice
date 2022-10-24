@@ -8,7 +8,8 @@ import com.ssibongee.daangnmarket.member.dto.ProfileRequest;
 import com.ssibongee.daangnmarket.member.domain.entity.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
+// 관습적으로 Service를 인터페이스로 추상화함
+// -> 확장성 up, 클라이언트와의 결합도 down
 public interface MemberService {
 
     public void registrationMember(Member member);

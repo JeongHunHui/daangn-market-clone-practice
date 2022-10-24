@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
+// 패스워드 단방향 암호화를 위해 PasswordEncoder를 빈으로 등록
 @Configuration
 public class SecurityConfig {
 

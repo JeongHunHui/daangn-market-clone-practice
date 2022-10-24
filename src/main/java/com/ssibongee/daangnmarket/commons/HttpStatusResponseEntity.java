@@ -3,6 +3,7 @@ package com.ssibongee.daangnmarket.commons;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+// 중복 사용되는 HttpStatus를 반환하는 ResponseEntity를 상수로 정의
 public class HttpStatusResponseEntity {
 
     public static final ResponseEntity<HttpStatus> RESPONSE_OK = ResponseEntity.status(HttpStatus.OK).build();
