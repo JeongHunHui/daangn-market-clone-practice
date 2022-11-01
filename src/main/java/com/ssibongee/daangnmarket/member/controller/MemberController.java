@@ -74,6 +74,7 @@ public class MemberController {
         boolean isValidMember = memberService.isValidMember(memberDto, passwordEncoder);
 
         if (isValidMember) {
+            // 암호화 및 로그인 정보 저장은 controller layer가 아닌 service layer에서 처리
             loginService.login(memberService.findMemberByEmail(memberDto.getEmail()).getId());
             return RESPONSE_OK;
         }
