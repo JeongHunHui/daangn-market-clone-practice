@@ -25,7 +25,7 @@ public class ExceptionAdvice {
     // @Controller, @RestController가 적용된 Bean내에서 발생하는 예외를 잡아서 하나의 메서드에서 처리
     // @ControllerAdvice안에 있는 @ExceptionHandler는 모든 컨트롤러에서 발생하는 특정 에러를 잡을 수 있다.
     // 인자로 캐치하고 싶은 에러 클래스를 넣으면 되고, 여러개를 넣을 수 있다.
-    // -> 모든 컨트롤러에서 발생하는 MemberNotFoundException를 잡아서 NotFound를 반환한다.
+    // -> 모든 컨트롤러에서 발생하는 MemberNotFoundException를 컨잡아서 NotFound를 반환한다.
     @ExceptionHandler(MemberNotFoundException.class)
     public ResponseEntity<HttpStatus> memberNotFoundException() {
         return RESPONSE_NOT_FOUND;

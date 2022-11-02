@@ -82,6 +82,10 @@ public class MemberController {
         return RESPONSE_BAD_REQUEST;
     }
 
+    // 일단 HTTPRequest가 들어오면 Dispatcher Servlet은 HandlerMapping에게 핸들러를 찾도록 요청
+    // -> 로그인 인터셉터의 preHandler로 이동해서 인터셉터 실행
+    // -> @LoginRequired가 붙어있으면 세션에 로그인 정보가 있는지 확인하고 있으면 정상 실행
+    // -> 세션에 로그인 정보가 없으면 UnAuthenticatedAccessException 예외 발생
     @LoginRequired
     @GetMapping("/logout")
     public ResponseEntity<HttpStatus> logout() {
@@ -91,6 +95,10 @@ public class MemberController {
 
     @LoginRequired
     @GetMapping("/my-profile")
+    // 로그인한 사용자의 정보를 가져올때 같은 코드가 반복됨
+    // 이 정보를 커스텀 ArgumentResolver를 구현해서 Controller의 인자로 받아올 수 있게 하면 중복코드 줄어들음
+    // @LoginMember 어노테이션이 붙어있으면 LoginMemberArgumentResolver가
+    // 해당 파라미터에 세션에 저장되어 있는 member의 정보를 바인딩해준다.
     public ResponseEntity<ProfileResponse> getMemberProfile(@LoginMember Member member) {
 
         return ResponseEntity.ok(ProfileResponse.of(member));
