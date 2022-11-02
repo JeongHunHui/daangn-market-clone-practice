@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+// 지역 정보를 입력받기 위한 DTO
 public class AddressRequest {
 
     @NotEmpty

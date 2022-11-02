@@ -37,6 +37,9 @@ public class Post extends BaseTimeEntity {
     @Lob
     private String content;
 
+    // 임베디드 타입 표시(복합 속성) -> Address에 state, city, town이 있음
+    // DB에는 Address의 세 속성이 그냥 Post의 속성으로 들어감
+    // -> Post 테이블에는 Address 속성이 아닌 state, city, town 속성이 들어가 있음
     @Embedded
     private Address address;
 

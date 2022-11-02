@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+// 임베디드 타입 정의
 @Embeddable
 public class Location {
 
@@ -28,6 +29,7 @@ public class Location {
      * @param location 사용자의 위치정보
      * @return distance
      */
+    // 다른 사용자의 위치를 받아 자신과의 거리를 반환하는 메소드
     public double calculateDistance(Location location) {
         double longitudeDistance = toRadian(location.getLongitude() - this.longitude);
         double latitudeDistance = toRadian(location.getLatitude() - this.latitude);
