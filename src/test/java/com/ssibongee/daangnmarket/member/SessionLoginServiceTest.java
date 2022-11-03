@@ -29,6 +29,7 @@ class SessionLoginServiceTest {
     @Mock
     private GeneralMemberService memberService;
 
+    // 가짜 HttpSession -> 이걸로 가짜 세션을 만들어서 set, getAttribute할 수 있다.
     private MockHttpSession mockHttpSession;
 
     private Member member;

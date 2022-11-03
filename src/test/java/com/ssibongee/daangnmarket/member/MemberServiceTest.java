@@ -24,12 +24,16 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+// 테스트 메소드에 특정 클래스를 확장하는 어노테이션
+// -> @ExtendWith(MokitoExtention.class): Mokito의 Mock객체를 사용하게 해줌
 @ExtendWith(MockitoExtension.class)
 class MemberServiceTest {
 
+    // memberService가 만들어질 때 해당 테스트 코드의 @Mock으로 등록된 객체를 주입받음
     @InjectMocks
     private GeneralMemberService memberService;
 
+    // 스프링 컨테이너가 아닌 Mockito 환경에 가짜로 객체를 띄움
     @Mock
     private MemberRepository memberRepository;
 
@@ -46,8 +50,12 @@ class MemberServiceTest {
 
     private LocationAddressRequest locationAddressRequest;
 
+    // 각 테스트 메소드가 실행되기 전에 실행되는 메소드를 표시
+    // 보통 테스트에 사용될 데이터를 세팅하기 위해 사용
     @BeforeEach
     void setUp() {
+        // 가짜 passwordEncoder를 선언했으므로, 안에 메소드의 동작을 따로 정의해줘야함
+        // -> encode를 하면 "1q2w3e4r!"를 반환하도록 설정
         when(passwordEncoder.encode(any())).thenReturn("1q2w3e4r!");
         memberDto = MemberDto.builder()
                 .email("daangnmarket@admin.com")
@@ -71,13 +79,19 @@ class MemberServiceTest {
         member = MemberDto.toEntity(memberDto, passwordEncoder);
     }
 
+    // 테스트 메소드를 표시
     @Test
+    // 테스트 클래스나 테스트 메소드에 이름을 붙혀줄 때 사용
+    // DisplayName에는 테스트 상황과 예상 결과까지 적어놓자
     @DisplayName("중복된 이메일이 존재하지 않는 경우 FALSE를 반환한다.")
     void isNotDuplicatedEmailExist() {
         // given
+        // memberRepository의 existsByEmail메소드를 실행했을 때 나올 값을 임의로 정해둔다
+        // when(메소드).thenReturn(메소드의 반환값)
         when(memberRepository.existsByEmail(any())).thenReturn(false);
 
         // then
+        // 이메일 중복여부가 false여야함
         assertFalse(memberService.isDuplicatedEmail(member.getEmail()));
     }
 
@@ -113,6 +127,7 @@ class MemberServiceTest {
         when(memberRepository.findMemberByEmail(any())).thenReturn(Optional.empty());
 
         // then
+        // 2번째 인자의 코드의 결괏값으로 MemberNotFoundException가 나와야 통과
         assertThrows(MemberNotFoundException.class, () -> {
             Member findByEmailMember = memberService.findMemberByEmail(member.getEmail());
         });
